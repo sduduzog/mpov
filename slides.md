@@ -21,11 +21,6 @@ image: /i_agree.png
 
 # My point of <span class="text-[#41B883]" v-mark="{color: '#41B883'}">Vue</span>
 
-<div class="absolute top-10">
-  <span class="font-700">
-    Sdu Gumede
-  </span>
-</div>
 
 <!--
 [click] Hello everyone.
@@ -51,16 +46,21 @@ layout: section
 <div class="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 14 14"><g fill="none"><g clip-path="url(#primeTwitter0)"><path fill="currentColor" d="M11.025.656h2.147L8.482 6.03L14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"/></g><defs><clipPath id="primeTwitter0"><path fill="#fff" d="M0 0h14v14H0z"/></clipPath></defs></g></svg><span>@sduduzo_g</span></div>
 
 <v-click>
-<Tweet id="1798338369698812340" />
+<Tweet id="1790664621507920214" />
 </v-click>
 
 
 <!--
-My name is Sduduzo Gumede, [click] or Sdu, for short
+First let me introduce myself. My name is Sduduzo Gumede, [click] or Sdu, for short
 
-I'm a consultant at Daemon,
-a co-host of the ZATechRadio podcast,
-[click] and a serial tweeter of note
+I'm a consultant at Daemon, a consultancy based in the UK,
+
+I'm one-3rd of the ZATechRadio podcast,
+
+a father to a beautiful little girl
+[click] and a serial tweeter of note.
+
+Do follow me for what could either be, great words of coding wizdom or dad jokes that should have remained in drafts 
 
 --> 
 
@@ -82,36 +82,268 @@ layout: center
 
 <!--
 Before joining Daemon, I worked for a consultancy based in Durban called [click] Codeo and  [click] I was primarily focused on the Yumbi platform.
-The main stack was [click] DOTNET, [click] VueJS, [click] and God forbid angular.js, [click] the first one.
- 
+The main stack was [click] asp.net, [click] VueJS, [click] and God forbid angular.js, [click] the first one.
 -->
 
 ---
+layout: two-cols
+class: grid items-center 
+---
+
+<div v-click>
+  <img src="/8yocso.jpg" />
+</div>
+
+
+::right::
+
+<div class="grid grid-cols-3 items-center">
+  <img src="/tab-steers.png" />
+  <img src="/tab-debonairs.png" />
+  <img src="/tab-fishaways.png" />
+</div>
+
 
 <!--
-VueJS powers one of the bigest restaurant ordering platforms in Africa. And it was and still is the perfect choice for such a platform.
+So the front-end framework chosen to power callcenters and online ordering platforms, in 18 different countries and thousands of restaurants. [click] VueJS was unleashed as the perfect fit.
+-->
+---
+layout: bullets
+---
 
-- It's ridiculously easy to pick up, and learn whether you're new to web frameworks, or coming from an alternative one
-- It makes working with designers with no interests in javascript, particularly easy too, thanks to vue templates
-- it's very scalable
-  - Achitecture: The team was able to introduce and adopt an architecture, on top of the framework that made it easy to translate for people with strong backend and OOP knowledge
-  - Maintainability: Being able to come in, as a new developer on the team, and introduce meaningful work is testament of how a well architected project is easy to maintain
-  - Customisability: The codeo teams successfuly extended the VueJS application through webpack to support multiple brands and designs for multiple countries while using the same codebase for the business logic
-  - Modularity: Not only does the logic writen service the web application, but using the react native bridge for the mobile app, the same VueJS project leverages some native features you find either on Android or iOS to refine the end user's experience of the platform, for example better location detection using the devices GPS, and tailored push notifications.
+# Vuejs is approachable
+
+<!--
+It's ridiculously easy to pick up, and learn whether you're new to web frameworks, or coming from an alternative one. It would take most people hours to days to get up to speed and feel productive in a team
 -->
 
 ---
+layout: bullets
+---
 
-Defining a vue component
+# Vuejs is scalable
+
+<v-clicks>
+
+- Versatility
+- Maintainability
+- Customisability
+- Modularity
+
+</v-clicks>
+
+<!--
+We were able to use VueJS as tiny patches of user interfaces in legacy applications that power the back-office for franchisees, support and brand marketers to progressively enhance their experience and also as a full featured framework that we've all at least used once to order a pizza or a burger before  
+
+[click] Continuing with the ordering system as an example, we were able to introduce and adopt an architecture, on top of the framework that made it easy for engineers from object-oriented programming backgrounds and back-end developers to contribute meaningfully. It also makes working with designers with no interests in javascript, particularly easy too, thanks to vue templates
+
+[click] Being able to come in, as a new developer on the team, and introduce meaningful work was testament of how a well architected Vue project is easy to maintain, no matter how large it had become
+
+[click] Our Vue project was successfully extended through webpack to support multiple brands and designs while using the same codebase for the business logic
+
+[click] Not only does the logic written, serve the web application, but using the react native bridge for the mobile apps, the same VueJS project leverages some native features you find either on Android or iOS to refine the end user's experience of the platform, for example better location detection using the devices GPS, and tailored push notifications. Think debonairs birthday vouchers
+-->
+
+---
+layout: center
+---
+
+<div v-click>
+  <img src="/8yomoa.jpg" />
+</div>
+
+<!--
+TLDR; I've built buttons in Vuejs being pressed in 18 different countries, and counting. Which is pretty cool
+
+[click] If you've been waiting to see some code. I believe I've done with the least exiting part of this talk.
+
+Let's look at the basic building block of a Vue app
+
+-->
+
+---
+layout: two-cols-header
+---
+
+# Single-File Components
 
 <!--
 From the first time I touched VueJS to learn it, to using it in production, the VueJS framework has undergone a single major version update. From version 2 to version 3. And throughout, defining a component remained fairly the same.
+-->
+---
+layout: two-cols-header
+---
 
-A single file component is still rocking the iconic trio. The template, script and style blocks encapsulating and colocating the view, logic and styling of a component in the same file.
+# Single-File Components
 
-The vue team also introduced the composition api, a way to define your logic with imported API functions, along with it, the setup attribute, allowing us to compose the our logic with less boilerplate.
+::left::
 
-Alternatively, you can still use the Options API, implemented on top of the composition api, which is centered around the concept of a "component instance" (this) which aligns better with a class-based mental model. This also makes the Options API beginner friendly, but both interfaces are powered by the same underlying system.
+Options API
+
+````md magic-move
+```vue {all|1-3|5-13|15-19|all|none}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  }
+}
+</script>
+
+<style>
+button {
+  font-weight: bold;
+}
+</style>
+```
+
+```vue {none|none}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  }
+}
+</script>
+
+<style>
+button {
+  font-weight: bold;
+}
+</style>
+```
+
+```vue
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  }
+}
+</script>
+```
+
+```vue {12-16|8-10,13-15}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  computed: {
+    doubled() {
+      return this.count * this.count
+    }
+  }
+}
+</script>
+```
+````
+::right::
+
+Composition API
+
+````md magic-move {at:1}
+```vue {all|1-3|5-15|17-21|all|5-15}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const count = ref(0)
+
+    return { count }
+  }
+}
+</script>
+
+<style>
+button {
+  font-weight: bold;
+}
+</style>
+```
+
+```vue {5|5-8}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const count = ref(0)
+</script>
+
+<style>
+button {
+  font-weight: bold;
+}
+</style>
+```
+
+
+```vue {none}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const count = ref(0)
+</script>
+```
+
+```vue {8|8}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+const count = ref(0)
+const doubled computed(() => count.value * count.value)
+</script>
+```
+````
+<style>
+  .two-cols-header {
+    @apply gap-1;
+  }
+</style>
+
+<!--
+Single file components are still rocking the iconic trio. The [click] template, [click] script and [click] style blocks [click] encapsulating and colocating the view, logic and styling of a component in the same file.
+
+[click] The vue team also introduced the composition api, a way to define your logic with imported API functions, along with it, [click] the setup attribute, [click] which hints Vue to make compile-time transforms allowing us to compose our logic with less boilerplate.
+
+[click] Alternatively, you can still use the Options API, [click] implemented on top of the composition api, but still centered around the concept of a "component instance" [click] (this) which aligns better with a class-based mental model. This also makes the Options API beginner friendly, but both interfaces are powered by the same underlying system.
 -->
 
 ---
