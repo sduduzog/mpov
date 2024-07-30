@@ -168,7 +168,7 @@ layout: two-cols-header
 # Single-File Components
 
 <!--
-From the first time I touched VueJS to learn it, to using it in production, the VueJS framework has undergone a single major version update. From version 2 to version 3. And throughout, defining a component remained fairly the same.
+From the first time I touched VueJS to learn it, to using it in production, VueJS has undergone a single major version update. From version 2 to version 3. And throughout, defining a component remained fairly the same.
 -->
 ---
 layout: two-cols-header
@@ -328,7 +328,7 @@ const count = ref(0)
 <script setup>
 import { ref, computed } from 'vue'
 const count = ref(0)
-const doubled computed(() => count.value * count.value)
+const doubled computed(() => count.value * 2)
 </script>
 ```
 ````
@@ -344,12 +344,168 @@ Single file components are still rocking the iconic trio. The [click] template, 
 [click] The vue team also introduced the composition api, a way to define your logic with imported API functions, along with it, [click] the setup attribute, [click] which hints Vue to make compile-time transforms allowing us to compose our logic with less boilerplate.
 
 [click] Alternatively, you can still use the Options API, [click] implemented on top of the composition api, but still centered around the concept of a "component instance" [click] (this) which aligns better with a class-based mental model. This also makes the Options API beginner friendly, but both interfaces are powered by the same underlying system.
+
+Speaking of class-based mental models
 -->
 
 ---
 
-<!--
+# Class based components
 
+<div class="flex gap-4" v-click.hide="'+1'">
+<span v-click v-mark.crossed-off>vue-class-component</span>
+<span v-click="'+0'" v-mark.crossed-off>vue-property-decorator</span>
+<span v-click>vue-facing-decorator</span>
+</div>
+
+<v-click at="+0">
+
+````md magic-move
+```vue {all|7}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script lang="ts">
+class Counter {
+  count = 0
+}
+</script>
+
+```
+
+```vue {9-11}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script lang="ts">
+class Counter {
+  count = 0
+
+  mounted() {
+    console.log(this.count)
+  }
+}
+</script>
+```
+
+```vue {13-15}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script lang="ts">
+class Counter {
+  count = 0
+
+  mounted() {
+    console.log(this.count)
+  }
+
+  get doubled() {
+    return this.count * 2
+  }
+}
+</script>
+```
+
+```vue {6,8}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script lang="ts">
+import { Vue } from 'vue-facing-decorator'
+
+class Counter extends Vue {
+  count = 0
+
+  mounted() {
+    console.log(this.count)
+  }
+
+  get doubled() {
+    return this.count * 2
+  }
+}
+</script>
+
+```
+```vue {6,8,21}
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script lang="ts">
+import { Component, Vue, toNative } from 'vue-facing-decorator'
+
+@Component
+class Counter extends Vue {
+  count = 0
+
+  mounted() {
+    console.log(this.count)
+  }
+
+  get doubled() {
+    return this.count * 2
+  }
+}
+
+export default toNative(Counter)
+</script>
+
+```
+
+```vue
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script lang="ts">
+import { Component, Vue, toNative } from 'vue-facing-decorator'
+
+@Component
+class Counter extends Vue {
+  count = 0
+
+  mounted() {
+    console.log(this.count)
+  }
+
+  get doubled() {
+    return this.count * 2
+  }
+}
+
+export default toNative(Counter)
+</script>
+
+```
+````
+
+</v-click>
+
+<style>
+  .two-cols-header {
+    @apply gap-1;
+  }
+</style>
+
+<!--
+You can also define vue components as javascript classes. [click] Of course with some library help. You would use vue-class-component as the decorator for your component definition, and 
+vue-property-decorator that builds on top of the latter to add more decorators for your component characteristics
+
+[click] I should mention, it's no longer recommended to use class-based components in Vue 3. Even the libraries that enabled this are now deprecatd in favour of the available functional approaches to component definitions.
+
+[click] But if you really want to continue with this direction, folks in the vue community created vue-facing-decorator which re-enables class based components with extra flavour enabled by Vue 3 
+
+[click] If you know how to write a pure javascript class, you pretty much know how to write a class based component. 
+
+[click] A class property will be your data property of course [click] lifecycle hooks are just regular methods of the class [click] getters enable you to define computed properties
+
+[click] Of course this is a vue component, so you class should extend vue, [click] we then decorate it as a component and finally, use the utility toNative that transforms your class into a native vue options API component.
 -->
 
 ---
