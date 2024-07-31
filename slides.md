@@ -499,29 +499,320 @@ vue-property-decorator that builds on top of the latter to add more decorators f
 
 [click] I should mention, it's no longer recommended to use class-based components in Vue 3. Even the libraries that enabled this are now deprecatd in favour of the available functional approaches to component definitions.
 
-[click] But if you really want to continue with this direction, folks in the vue community created vue-facing-decorator which re-enables class based components with extra flavour enabled by Vue 3 
+[click] But if you really want to continue with this direction, folks in the vue community created vue-facing-decorator which re-enables class based components with extra flavour added by Vue 3 
 
 [click] If you know how to write a pure javascript class, you pretty much know how to write a class based component. 
 
 [click] A class property will be your data property of course [click] lifecycle hooks are just regular methods of the class [click] getters enable you to define computed properties
 
 [click] Of course this is a vue component, so you class should extend vue, [click] we then decorate it as a component and finally, use the utility toNative that transforms your class into a native vue options API component.
+
+[click] Throughout these different ways of composing our component logic, the template and styles can remain the same
+-->
+
+---
+layout: quote
+---
+
+# "Yea but v-for and v-if are just weird"
+an indenial react dev
+
+<!--
+Now there's a subset of devs that see the Vue template syntax and think "Yea but v-for and v-if are just weird" I have two questions then.
+
+1. Do you also think other html attributes are werid? Because honestly, vue templates feel almost native to HTML, which was the intended purpose
+-->
+
+---
+layout: section
+---
+
+```tsx {all|3,6}
+function TestPage() {
+  return (
+    <>
+      <h1 className="">About</h1>
+      <p>Hello, world!</p>
+    </>
+  )
+}
+```
+
+<h1 v-after>???</h1>
+
+<!--
+Second question for people using jsx and/or tsx [click] 2. What are those? 
+-->
+
+---
+layout: center
+---
+
+<v-click>
+
+![lewis looking at jsx pills](/8ysoiz.jpg)
+
+</v-click>
+
+<!--
+It does happen though in some instances within a vue project, [click] you get use cases for jsx, whether you're trying out vue and you still want to define your interfaces with something familiar or you need the flexibility of being able to define multiple functional components in a single file. 
+-->
+
+---
+layout: two-cols
+---
+
+## Counter.vue
+
+```vue
+<template>
+  <button @click="count++">Count is: {{ count }}</button>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const count = ref(0)
+
+    return { count }
+  }
+}
+</script>
+```
+
+::right::
+
+## Counter.jsx
+
+```tsx
+import { ref } from 'vue'
+
+export default {
+  setup() {
+    const count = ref(0)
+
+    return () => (
+      <button onClick={() => count.value++}>
+        Count is: {{ count.value }}
+      </button>
+    )
+  }
+}
+```
+
+
+<style>
+  .two-columns {
+    @apply gap-1;
+  }
+</style>
+
+<!--
+Using our previous composition api example, we can pretty much rewrite every component we want as jsx. 
+
+But be careful when coming from react as some things won't be particularly the same.
+- in Vue JSX for instance, you can use html attributes such as class and for in form labels, which you can't in react
 -->
 
 ---
 
-<!-- reason to care -->
-<!-- reason to believe -->
-<!-- need to know -->
-<!-- need to do -->
+# Templates vs. Render Functions
+
+<v-click>
+
+````md magic-move
+```vue {all|7}
+<script setup >
+import { ref } from 'vue';
+
+const count = ref(0)
+</script>
+<template>
+  <h1>Hello, world</h1>
+  <button>{{ count }}</button>
+</template>
+```
+
+```js {19|all}
+import { ref } from 'vue';
+
+const __sfc__ = {
+  __name: 'App',
+  setup(__props, { expose: __expose }) {
+  __expose();
+
+const count = ref(0)
+
+const __returned__ = { count, ref }
+Object.defineProperty(__returned__, '__isScriptSetup', { enumerable: false, value: true })
+return __returned__
+}
+
+};
+import { createElementVNode as _createElementVNode, toDisplayString as _toDisplayString,
+  Fragment as _Fragment, openBlock as _openBlock, createElementBlock as _createElementBlock } from "vue"
+
+const _hoisted_1 = /*#__PURE__*/_createElementVNode("h1", null, "Hello, world", -1 /* HOISTED */)
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (_openBlock(), _createElementBlock(_Fragment, null, [
+    _hoisted_1,
+    _createElementVNode("button", null, _toDisplayString($setup.count), 1 /* TEXT */)
+  ], 64 /* STABLE_FRAGMENT */))
+}
+__sfc__.render = render
+__sfc__.__file = "src/App.vue"
+export default __sfc__
+```
+````
+</v-click>
+
+<!--
+
+Fun fact!
+
+Vue templates are compiled into render functions.
+
+And jsx in Vue is just a fancy render function
+
+So why does Vue recommend templates?
+
+[click]
+
+- Templatesa are closer to actual html, so if you know how to work with html, you know how to work with vue templates
+
+- Templates are easier to statically analyze due to their deterministric syntax. The vue compiler is way better at writing efficient and performant render functions than you could ever
+
+[click] Parts of a template that don't contain dynamic bindings [click] will be hoisted and reused on every re-render
+
+[click] The compiler can statically analyze the template and leave hints in the generated code so that the runtime can take shortcuts whenever possible
+
+-->
+
+---
+layout: section
+---
+
+<v-clicks>
+
+- Routing
+- State management
+- SEO & Meta tags
+- Data fetching
+- So much more, etc etc
+
+</v-clicks>
+
+<v-switch :at="1">
+  <template #0-6><h1>So whats next?</h1></template>
+  <template #6><h1 class="flex items-center">So whats
+<svg v-click.after xmlns="http://www.w3.org/2000/svg" class="ml-4 mb-1" width="180" height="70" viewBox="0 0 128 32" fill="none">
+<path d="M60.32 32C60.6656 32 60.96 31.7135 60.96 31.36V16.48C60.96 16.48 61.76 17.92 63.2 20.32L69.44 31.04C69.7255 31.6384 70.359 32 70.88 32H75.2V8H70.88C70.5923 8 70.24 8.23906 70.24 8.64V23.68L67.36 18.56L61.6 8.8C61.3197 8.3026 60.7166 8 60.16 8H56V32H60.32Z" fill="black"/>
+<path d="M116.16 14.72H118.24C118.77 14.72 119.2 14.2902 119.2 13.76V9.6H123.68V14.72H128V18.56H123.68V25.44C123.68 27.12 124.489 27.84 125.92 27.84H128V32H125.28C121.592 32 119.2 29.6114 119.2 25.6V18.56H116.16V14.72Z" fill="black"/>
+<path d="M94.56 14.72V24.64C94.56 26.8806 93.7188 28.7695 92.48 30.08C91.2412 31.3905 89.5306 32 87.2 32C84.8694 32 82.9988 31.3905 81.76 30.08C80.5422 28.7695 79.68 26.8806 79.68 24.64V14.72H82.24C82.7859 14.72 83.3231 14.8195 83.68 15.2C84.0369 15.5593 84.16 15.7704 84.16 16.32V24.64C84.16 25.9294 84.2331 26.7259 84.8 27.36C85.3669 27.973 86.0662 28.16 87.2 28.16C88.3548 28.16 88.8731 27.973 89.44 27.36C90.0069 26.7259 90.08 25.9294 90.08 24.64V16.32C90.08 15.7704 90.2031 15.4205 90.56 15.04C90.8736 14.7057 91.2045 14.7136 91.68 14.72C91.7457 14.7209 91.9337 14.72 92 14.72H94.56Z" fill="black"/>
+<path d="M108.16 23.04L113.6 14.72H109.44C108.916 14.72 108.45 14.9081 108.16 15.36L105.6 19.2L103.2 15.52C102.91 15.0681 102.284 14.72 101.76 14.72H97.76L103.2 22.88L97.28 32H101.44C101.96 32 102.429 31.486 102.72 31.04L105.6 26.72L108.64 31.2C108.931 31.646 109.4 32 109.92 32H114.08L108.16 23.04Z" fill="black"/>
+<path d="M26.88 32H44.64C45.2068 32.0001 45.7492 31.8009 46.24 31.52C46.7308 31.2391 47.2367 30.8865 47.52 30.4C47.8033 29.9135 48.0002 29.3615 48 28.7998C47.9998 28.2381 47.8037 27.6864 47.52 27.2001L35.52 6.56C35.2368 6.0736 34.8907 5.72084 34.4 5.44C33.9093 5.15916 33.2066 4.96 32.64 4.96C32.0734 4.96 31.5307 5.15916 31.04 5.44C30.5493 5.72084 30.2032 6.0736 29.92 6.56L26.88 11.84L20.8 1.59962C20.5165 1.11326 20.1708 0.600786 19.68 0.32C19.1892 0.0392139 18.6467 0 18.08 0C17.5133 0 16.9708 0.0392139 16.48 0.32C15.9892 0.600786 15.4835 1.11326 15.2 1.59962L0.32 27.2001C0.0363166 27.6864 0.000246899 28.2381 3.05588e-07 28.7998C-0.000246288 29.3615 0.0367437 29.9134 0.32 30.3999C0.603256 30.8864 1.10919 31.2391 1.6 31.52C2.09081 31.8009 2.63324 32.0001 3.2 32H14.4C18.8379 32 22.068 30.0092 24.32 26.24L29.76 16.8L32.64 11.84L41.44 26.88H29.76L26.88 32ZM14.24 26.88H6.4L18.08 6.72L24 16.8L20.0786 23.636C18.5831 26.0816 16.878 26.88 14.24 26.88Z" fill="#00DC82"/>
+</svg>
+?</h1></template>
+</v-switch>
+
 
 <!--
 topics
 
-Alternative ways of authoring components
 Nuxt and Nitro: "Write once, deploy everywhere"
 3rd party integrations (i.e. embedding a graphql server)
 unjs packages and production use cases
 Discover sli.dev
 
 -->
+
+<!--
+
+Okay, now that you're a professional at writing vue components and you're building the next facebook
+
+[click] Do you configure vue-router for navigation?
+
+[click] Do you setup pinia for state management because it's better than vuex?
+
+[click] Do you fight with server side rendering, and fiddle through npm to find libraries to help with SEO and meta tags?
+
+[click] Or perhaps add that blazing fast data fetching library?
+
+[click] There's actually a lot of moving pieces to bring together when building a project for the real world that we need to consider. So what's next
+
+[click] Well its a batteries-included framework for building performant and production-grade full-stack web apps and websites
+
+-->
+
+---
+layout: two-cols
+---
+
+<h1 class="flex items-center">
+<svg xmlns="http://www.w3.org/2000/svg" class="" width="180" height="180" viewBox="0 0 128 32" fill="none">
+<path d="M60.32 32C60.6656 32 60.96 31.7135 60.96 31.36V16.48C60.96 16.48 61.76 17.92 63.2 20.32L69.44 31.04C69.7255 31.6384 70.359 32 70.88 32H75.2V8H70.88C70.5923 8 70.24 8.23906 70.24 8.64V23.68L67.36 18.56L61.6 8.8C61.3197 8.3026 60.7166 8 60.16 8H56V32H60.32Z" fill="black"/>
+<path d="M116.16 14.72H118.24C118.77 14.72 119.2 14.2902 119.2 13.76V9.6H123.68V14.72H128V18.56H123.68V25.44C123.68 27.12 124.489 27.84 125.92 27.84H128V32H125.28C121.592 32 119.2 29.6114 119.2 25.6V18.56H116.16V14.72Z" fill="black"/>
+<path d="M94.56 14.72V24.64C94.56 26.8806 93.7188 28.7695 92.48 30.08C91.2412 31.3905 89.5306 32 87.2 32C84.8694 32 82.9988 31.3905 81.76 30.08C80.5422 28.7695 79.68 26.8806 79.68 24.64V14.72H82.24C82.7859 14.72 83.3231 14.8195 83.68 15.2C84.0369 15.5593 84.16 15.7704 84.16 16.32V24.64C84.16 25.9294 84.2331 26.7259 84.8 27.36C85.3669 27.973 86.0662 28.16 87.2 28.16C88.3548 28.16 88.8731 27.973 89.44 27.36C90.0069 26.7259 90.08 25.9294 90.08 24.64V16.32C90.08 15.7704 90.2031 15.4205 90.56 15.04C90.8736 14.7057 91.2045 14.7136 91.68 14.72C91.7457 14.7209 91.9337 14.72 92 14.72H94.56Z" fill="black"/>
+<path d="M108.16 23.04L113.6 14.72H109.44C108.916 14.72 108.45 14.9081 108.16 15.36L105.6 19.2L103.2 15.52C102.91 15.0681 102.284 14.72 101.76 14.72H97.76L103.2 22.88L97.28 32H101.44C101.96 32 102.429 31.486 102.72 31.04L105.6 26.72L108.64 31.2C108.931 31.646 109.4 32 109.92 32H114.08L108.16 23.04Z" fill="black"/>
+<path d="M26.88 32H44.64C45.2068 32.0001 45.7492 31.8009 46.24 31.52C46.7308 31.2391 47.2367 30.8865 47.52 30.4C47.8033 29.9135 48.0002 29.3615 48 28.7998C47.9998 28.2381 47.8037 27.6864 47.52 27.2001L35.52 6.56C35.2368 6.0736 34.8907 5.72084 34.4 5.44C33.9093 5.15916 33.2066 4.96 32.64 4.96C32.0734 4.96 31.5307 5.15916 31.04 5.44C30.5493 5.72084 30.2032 6.0736 29.92 6.56L26.88 11.84L20.8 1.59962C20.5165 1.11326 20.1708 0.600786 19.68 0.32C19.1892 0.0392139 18.6467 0 18.08 0C17.5133 0 16.9708 0.0392139 16.48 0.32C15.9892 0.600786 15.4835 1.11326 15.2 1.59962L0.32 27.2001C0.0363166 27.6864 0.000246899 28.2381 3.05588e-07 28.7998C-0.000246288 29.3615 0.0367437 29.9134 0.32 30.3999C0.603256 30.8864 1.10919 31.2391 1.6 31.52C2.09081 31.8009 2.63324 32.0001 3.2 32H14.4C18.8379 32 22.068 30.0092 24.32 26.24L29.76 16.8L32.64 11.84L41.44 26.88H29.76L26.88 32ZM14.24 26.88H6.4L18.08 6.72L24 16.8L20.0786 23.636C18.5831 26.0816 16.878 26.88 14.24 26.88Z" fill="#00DC82"/>
+</svg>
+</h1>
+
+::right::
+
+<v-switch>
+  <template #1>
+    <img src="/remix-light.png"  class="w-96"/>
+  </template>
+
+  <template #2>
+    <img src="/remix_aqcuired.png"  class=""/>
+  </template>
+
+  <template #3>
+    <img src="/Gatsby_Logo.png"  class="p-10"/>
+  </template>
+
+  <template #4>
+    <img src="/gatsby_aqcuired.png"  class=""/>
+  </template>
+
+  <template #5>
+    <img src="/nextjs-logo-square.webp"  class="h-50 w-full object-contain"/>
+  </template>
+
+  <template #6>
+    <img src="/now_config.png"  class="w-full"/>
+  </template>
+
+  <template #7>
+    <img src="/nextjs-logo-square.webp"  class="h-50 w-full object-contain"/>
+  </template>
+</v-switch>
+
+<style>
+  .col-right {
+    @apply col-span-2
+  }
+</style>
+
+<!--
+Nuxt is a Vue meta framework as much as next, remix and gatsby are react meta frameworks. 
+
+But there are subtle details that set these frameworks apart, even with all the similarities
+
+[click] Nuxt and remix both focus on fast user experiences and efficient data handling. By the way, remix was, for a brief moment, only available through a paid license called "supporter preview" to developers, about a year later, remix was made open source under the MIT license. [click] Almost a year after that, it was aqcuired by shopify
+
+[click] Gatsby started as a blazing-fast static site generator for React, then from version two and up, they started introducing more interactive features, like server side rendering, integrations with CMS systems and GraphQL. Nuxt not only has had first class support for static site generation but the plugin system allowed developers to bring in their favourite libraries to the framework. [click] By the way Gatsby is not dead or discontinued, it has been aqcuired by netlify 
+
+[click] Nuxt and next share a little more than the latter comparisons, for one, nuxt greatly was inspired by next, from the name to the feature-rich meta framework that it is today. Back when vercel was called zeit, next eventually added support for api event handlers, which when deploying to zeit, would become serverless functions for your application. [click] To achieve the same for nuxt, you had to add custom configuration pointing to a folder holding express.js handlers, and for local development, you would create a nuxt plugin that uses express.js for nuxt for the handlers
+
+-->
+
+---
+
+
+
+---
