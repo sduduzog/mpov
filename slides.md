@@ -35,8 +35,10 @@ At the end or this talk, I hope to have added one or two new items into your too
 -->
 
 ---
-layout: section
+layout: two-cols-header
 ---
+
+::left::
 
 # <span v-mark.circle.teal>Sdu</span>duzo Gumede
 
@@ -48,6 +50,11 @@ layout: section
 <v-click>
 <Tweet id="1790664621507920214" />
 </v-click>
+
+::right::
+
+<img src="/logo-daemo.webp" class="mx-auto w-72 mt-20"/>
+<img src="/zatechradio_poster.webp" class="h-40 w-72 rounded-2xl overflow-hidden object-cover mx-auto mt-20" />
 
 
 <!--
@@ -961,4 +968,123 @@ You need at least 3 files to have a running nuxt project
 If you're using typescript, these parameters will be fully typed when accessing them within your component
 
 [click] My favourite part of working with nuxt is adding api endpoints. It's as simple as adding handlers in the server api folder. Of all features I was looking for when nuxt version 3 was released in 2021, was being able to add backend code without the need to integrate express.js or similar libraries as we had to in the past
+
 -->
+
+---
+layout: center
+---
+
+![server](/server.svg)
+
+<!--
+
+Not only was nuxt rewriten from the ground up using typescript, but the nuxt team also built nitro, a full-stack server toolkit that powers nuxt, and along with it, a whole javascript ecosystem
+
+-->
+
+---
+
+# Nitro
+
+<img src="/nitro.png" class="object-contain h-[28rem] w-full" />
+
+<!--
+
+The best way to describe nitro is that it's a headless meta-framework. It's almost all the nuxt, without Vue and any dom related stuff. 
+
+Today, you can use nitro, as an alternative web server to express, koa or fastify
+
+
+-->
+
+---
+
+# Nitro
+
+- Alwaysdata
+- AWS Lambda
+- AWS Amplify
+- Azure
+- Cleavr
+- Cloudflare
+- Deno Deploy
+- DigitalOcean
+- Edgio
+- Firebase
+- Flightcontrol
+- GitHub Pages
+- GitLab Pages
+- Heroku
+- IIS
+- Koyeb
+- Netlify
+- Platform.sh
+- Render.com
+- StormKit
+- Vercel
+- Zeabur
+
+<style>
+ul {
+  @apply grid grid-cols-2
+}
+</style>
+
+<!--
+
+Today, you can write your web apis as a nitro project, and decide at build time, which of the current 22 providers you want to target, or which of the 3 runtimes you want to build for
+
+Node, Deno or Bun
+
+-->
+
+---
+
+# h3
+
+<v-click>
+```ts
+// Import h3 as npm dependency
+import { createApp, createRouter, defineEventHandler } from "h3";
+
+// Create an app instance
+export const app = createApp();
+
+// Create a new router and register it in app
+const router = createRouter();
+app.use(router);
+
+// Add a new route that matches GET requests to / path
+router.get(
+  "/",
+  defineEventHandler((event) => {
+    return { message: "⚡️ Tadaa!" };
+  }),
+);
+```
+</v-click>
+
+<!--
+Nitro is also built on top of another library called h3. A minimal http framework built for high performance and portability
+
+[click] h3 is the first library from unjs that I used at work for a production system. I added it to expose health check endpoints to several node applications that we were migrating to new infrastructure
+-->
+
+---
+layout: center
+---
+
+# unjs.io
+
+<!--
+
+There's about 66 more packages under the unjs ecosystem that give javascript a well needed facelift. And we can rest assured that these packages are being actively developed, tested,  maintained because almost every single one of these tiny packages make up what we know as Nuxt today 
+
+-->
+
+---
+layout: center
+---
+
+# End
