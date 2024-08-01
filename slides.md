@@ -709,8 +709,8 @@ layout: section
 </v-clicks>
 
 <v-switch :at="1">
-  <template #0-6><h1>So whats next?</h1></template>
-  <template #6><h1 class="flex items-center">So whats
+  <template #0-6><h1>So what's next?</h1></template>
+  <template #6><h1 class="flex items-center">So what's
 <svg v-click.after xmlns="http://www.w3.org/2000/svg" class="ml-4 mb-1" width="180" height="70" viewBox="0 0 128 32" fill="none">
 <path d="M60.32 32C60.6656 32 60.96 31.7135 60.96 31.36V16.48C60.96 16.48 61.76 17.92 63.2 20.32L69.44 31.04C69.7255 31.6384 70.359 32 70.88 32H75.2V8H70.88C70.5923 8 70.24 8.23906 70.24 8.64V23.68L67.36 18.56L61.6 8.8C61.3197 8.3026 60.7166 8 60.16 8H56V32H60.32Z" fill="black"/>
 <path d="M116.16 14.72H118.24C118.77 14.72 119.2 14.2902 119.2 13.76V9.6H123.68V14.72H128V18.56H123.68V25.44C123.68 27.12 124.489 27.84 125.92 27.84H128V32H125.28C121.592 32 119.2 29.6114 119.2 25.6V18.56H116.16V14.72Z" fill="black"/>
@@ -1002,6 +1002,8 @@ Today, you can use nitro, as an alternative web server to express, koa or fastif
 
 # Nitro
 
+##
+
 - Alwaysdata
 - AWS Lambda
 - AWS Amplify
@@ -1033,9 +1035,11 @@ ul {
 
 <!--
 
-Today, you can write your web apis as a nitro project, and decide at build time, which of the current 22 providers you want to target, or which of the 3 runtimes you want to build for
+Today, you can write your web apis as a nitro project, and decide at build time, which of the 22 providers you want to target, or which of the 3 runtimes you want to build for
 
 Node, Deno or Bun
+
+Nuxt and Nitro are the near perfect, write once, deploy anywhere web frameworks
 
 -->
 
@@ -1044,18 +1048,14 @@ Node, Deno or Bun
 # h3
 
 <v-click>
-```ts
-// Import h3 as npm dependency
+````md magic-move
+```ts {all|9}
 import { createApp, createRouter, defineEventHandler } from "h3";
 
-// Create an app instance
 export const app = createApp();
-
-// Create a new router and register it in app
 const router = createRouter();
 app.use(router);
 
-// Add a new route that matches GET requests to / path
 router.get(
   "/",
   defineEventHandler((event) => {
@@ -1063,12 +1063,45 @@ router.get(
   }),
 );
 ```
+
+```ts
+import { createApp, createRouter, defineEventHandler } from "h3";
+import SchemaBuilder from '@pothos/core'
+import { createYoga } from 'graphql-yoga'
+
+export const app = createApp();
+const router = createRouter();
+app.use(router);
+
+const builder = new SchemaBuilder({})
+
+builder.queryType({
+  fields: (t) => ({
+    hello: t.string(({
+      args: { name: t.arg.string() },
+      resolve: (parent, {name}) => `hello, ${name}`
+    }))
+  })
+})
+
+const yoga = createYoga({schema: builder.toSchema(), graphqlEndpoint: '/graphql' })
+
+router.use("/graphql", fromNodeMiddleware(yoga))
+```
+````
 </v-click>
 
 <!--
 Nitro is also built on top of another library called h3. A minimal http framework built for high performance and portability
 
-[click] h3 is the first library from unjs that I used at work for a production system. I added it to expose health check endpoints to several node applications that we were migrating to new infrastructure
+[click] h3, just like VueJS on its own, can be added to any existing project to progressively enhance it
+
+[click] Notice how, the handler doesn't receive a request and response argument like most server libraries, but just an event argument. The library comes with a tone of utilities to help with backwards compatibility and adapters for various runtimes
+
+[click] Say you want to integrate with graphql for example. If server libraries like apollo or yoga have can be added as listeners to any node http server, or similar, then there's a utility in h3 to bridge that gap
+
+
+
 -->
 
 ---
@@ -1087,4 +1120,53 @@ There's about 66 more packages under the unjs ecosystem that give javascript a w
 layout: center
 ---
 
-# End
+# One more thing...
+
+<!--
+
+Now there's one more thing
+
+-->
+
+---
+layout: center
+---
+
+![slidev](/slidev.png)
+
+<span class="inline-block w-full text-center">https://sli.dev</span>
+
+<style>
+  img {
+    @apply h-80
+  }
+</style>
+
+<!--
+
+
+Slidev is a tool built with VueJS that provides flexibility and interactivity for developers to make their presentations much more interesting, expressive, and attractive by using technologies they are familiar with. 
+
+This whole presentation is created in Slidev.
+
+If you were expecting a live demo at any point of this talk, well this was it. All of it
+
+It is Markdown-based, which helps you focus on the content and also Web-based, everything you can do in a web app can apply to your slides.
+
+-->
+
+---
+layout: section
+---
+
+# Thank you
+
+https://sduduzog.github.io/mpov
+
+<!--
+
+That's all for my talk
+
+Thank you
+
+-->
